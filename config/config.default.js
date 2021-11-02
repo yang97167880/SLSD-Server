@@ -18,6 +18,7 @@ function getIpAddress() {
   }
 }
 const localhost = getIpAddress()
+const host = '49.235.62.192'
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -33,9 +34,10 @@ module.exports = appInfo => {
   config.security = { csrf: { enable: false }, domainWhiteList: ['*'] };
   config.snowflake = { client: { machineId: 1, machineIdBitLength: 6, workerIdBitLength: 4, serialIdBitLength: 12 } };
   config.cors = { allowMethods: 'GET,POST,OPTIONS' };
+  config.jwt = { secret: '2IGUTaI573626TIz!^ng1rJcRYm^l2c2' }
   config.mysql = {
-    host: localhost, port: '3306',
-    user: '', password: '', database: '',
+    host: host, port: '3306',
+    user: 'Hydropower_Sensor_2021', password: 'Xb6g0UkkdTalCoz3', database: 'Hydropower_Sensor_2021',
     app: true,
     agent: false
   }

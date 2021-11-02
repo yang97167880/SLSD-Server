@@ -13,7 +13,7 @@ class UserController extends Controller {
       ctx.validate(loginTransfer);
       const payload = ctx.request.body || {};
       payload.timestamp = ctx.helper.parseTime(new Date(), '{yyyy}{mm}{dd}{hh}{ii}{ss}');
-      const data = await service.manage.userService.login(payload);
+      const data = await service.userService.login(payload);
       ctx.helper.result({ ctx, data, status: 200 });
     } catch (err) {
       ctx.helper.result({ ctx, data: { msg: err }, status: 500 });

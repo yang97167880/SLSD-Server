@@ -17,7 +17,7 @@ function getIpAddress() {
     }
   }
 }
-const localhost = getIpAddress()
+//const localhost = getIpAddress()
 const host = '49.235.62.192'
 /**
  * @param {Egg.EggAppInfo} appInfo app info
@@ -36,8 +36,15 @@ module.exports = appInfo => {
   config.cors = { allowMethods: 'GET,POST,OPTIONS' };
   config.jwt = { secret: '2IGUTaI573626TIz!^ng1rJcRYm^l2c2' }
   config.mysql = {
-    host: host, port: '3306',
-    user: 'Hydropower_Sensor_2021', password: 'Xb6g0UkkdTalCoz3', database: 'Hydropower_Sensor_2021',
+    clients: {
+      core: {
+        host: host,
+        port: '3306',
+        database: 'Hydropower_Sensor_2021',
+        user: 'Hydropower_Sensor_2021',
+        password: 'Xb6g0UkkdTalCoz3'
+      }
+    },
     app: true,
     agent: false
   }

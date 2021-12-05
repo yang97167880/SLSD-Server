@@ -2,7 +2,7 @@
 
 module.exports = {
   result: ({ ctx, data = null, status = 200 }) => {
-    ctx.body = data
+    ctx.body = { data: data }
     ctx.status = status
   },
   /* 格式转换 time ->时间 cFormat->返回格式 {y}-{m}-{d} {h}:{i}:{s} */
@@ -37,6 +37,42 @@ module.exports = {
       return value || 0
     })
     return time_str
+  },
+  database: async function (app) {
+    const db = await app.mysql.get('core');
+    if (db === undefined) throw 'db client unconnected';
+    return {
+      user: {
+        get: async (where) => {
+          return await db.get('hs_user', where)
+        },
+        select: async (params) => {
+          return await db.select('hs_user', params)
+        },
+        page: async (params) => {
+          const items = await db.select('hs_user', params);
+          const total = await db.count('hs_user', params.where);
+          return { items, total };
+        },
+        save: async (params) => {
+          const res = await db.insert('gs_user', {
+            id: params.id,
+            account: params.account,
+            password: params.password,
+            createAt: new Date(),
+            avatar: params.avatar,
+            role: params.role
+          });
+          return res;
+        },
+        edit: async (row, options) => {
+          return await db.update('hs_user', row, options);
+        },
+        del: async (where) => {
+          return await db.delete('hs_user', where);
+        }
+      },
+    }
   },
   STATUS: {
     NOTPOWER: { code: 994000, msg: 'user not handle power' },// 无操作权限

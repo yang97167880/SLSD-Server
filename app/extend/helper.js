@@ -55,7 +55,7 @@ module.exports = {
           return { items, total };
         },
         save: async (params) => {
-          const res = await db.insert('gs_user', {
+          const res = await db.insert('hs_user', {
             id: params.id,
             account: params.account,
             password: params.password,
@@ -72,6 +72,117 @@ module.exports = {
           return await db.delete('hs_user', where);
         }
       },
+      role: {
+        get: async (where) => {
+          return await db.get('hs_role', where)
+        },
+        select: async (params) => {
+          return await db.select('hs_role', params)
+        },
+        page: async (params) => {
+          const items = await db.select('hs_role', params);
+          const total = await db.count('hs_role', params.where);
+          return { items, total };
+        },
+        save: async (params) => {
+          const res = await db.insert('hs_role', {
+            id: params.id,
+            instruct: params.instruct,
+            name: params.name,
+            describe: params.describe
+          });
+          return res;
+        },
+        edit: async (row, options) => {
+          return await db.update('hs_role', row, options);
+        },
+        del: async (where) => {
+          return await db.delete('hs_role', where);
+        },
+        power: {
+          get: async (where) => {
+            return await db.get('hs_role_power', where)
+          },
+          select: async (params) => {
+            return await db.select('hs_role_power', params)
+          },
+          page: async (params) => {
+            const items = await db.select('hs_role_power', params);
+            const total = await db.count('hs_role_power', params.where);
+            return { items, total };
+          },
+          save: async (params) => {
+            const res = await db.insert('hs_role_power', {
+              id: params.id,
+              roleId: params.roleId,
+              powerId: params.powerId
+            });
+            return res;
+          },
+          edit: async (row, options) => {
+            return await db.update('hs_role_power', row, options);
+          },
+          del: async (where) => {
+            return await db.delete('hs_role_power', where);
+          },
+        }
+      },
+      sensor: {
+        get: async (where) => {
+          return await db.get('hs_sensor', where)
+        },
+        select: async (params) => {
+          return await db.select('hs_sensor', params)
+        },
+        page: async (params) => {
+          const items = await db.select('hs_sensor', params);
+          const total = await db.count('hs_sensor', params.where);
+          return { items, total };
+        },
+        save: async (params) => {
+          const res = await db.insert('hs_sensor', {
+            id: params.id,
+            name: params.name,
+            type: params.type,
+            categoryId: params.categoryId,
+            status: params.status
+          });
+          return res;
+        },
+        edit: async (row, options) => {
+          return await db.update('hs_sensor', row, options);
+        },
+        del: async (where) => {
+          return await db.delete('hs_sensor', where);
+        },
+        category: {
+          get: async (where) => {
+            return await db.get('hs_sensor_category', where)
+          },
+          select: async (params) => {
+            return await db.select('hs_sensor_category', params)
+          },
+          page: async (params) => {
+            const items = await db.select('hs_sensor_category', params);
+            const total = await db.count('hs_sensor_category', params.where);
+            return { items, total };
+          },
+          save: async (params) => {
+            const res = await db.insert('hs_sensor_category', {
+              id: params.id,
+              name: params.name
+            });
+            return res;
+          },
+          edit: async (row, options) => {
+            return await db.update('hs_sensor_category', row, options);
+          },
+          del: async (where) => {
+            return await db.delete('hs_sensor_category', where);
+          }
+        }
+      }
+
     }
   },
   STATUS: {

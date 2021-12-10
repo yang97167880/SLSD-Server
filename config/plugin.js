@@ -7,5 +7,6 @@ module.exports = {
   validate: { enable: true, package: 'egg-validate' },
   snowflake: { enable: true, package: 'egg-snowflake' },
   redis: { enable: true, package: 'egg-redis' },
-  mysql: { enable: true, package: 'egg-mysql' }
+  mysql: { enable: true, package: 'egg-mysql' },
+  io: { enable: true, package: "egg-socket.io" }
 };

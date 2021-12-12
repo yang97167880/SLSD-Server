@@ -181,8 +181,36 @@ module.exports = {
             return await db.delete('hs_sensor_category', where);
           }
         }
+      },
+      alarm: {
+        get: async (where) => {
+          return await db.get('hs_alarm', where)
+        },
+        select: async (params) => {
+          return await db.select('hs_alarm', params)
+        },
+        page: async (params) => {
+          const items = await db.select('hs_alarm', params);
+          const total = await db.count('hs_alarm', params.where);
+          return { items, total };
+        },
+        save: async (params) => {
+          const res = await db.insert('hs_alarm', {
+            id: params.id,
+            sensorId: params.sensorId,
+            rangeMax: params.rangeMax,
+            rangeMin: params.rangeMin,
+            isRange: params.isRange
+          });
+          return res;
+        },
+        edit: async (row, options) => {
+          return await db.update('hs_alarm', row, options);
+        },
+        del: async (where) => {
+          return await db.delete('hs_alarm', where);
+        }
       }
-
     }
   },
   STATUS: {

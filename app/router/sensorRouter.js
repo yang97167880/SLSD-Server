@@ -6,4 +6,5 @@ module.exports = app => {
   router.post('/sensor/list', jwt, controller.sensorController.list);
   router.post('/sensor/add', jwt, controller.sensorController.add);
   router.post('/sensor/category/add', jwt, controller.sensorController.category_add);
+  router.post('/sensor/category/list', jwt, controller.sensorController.category_list);
 }

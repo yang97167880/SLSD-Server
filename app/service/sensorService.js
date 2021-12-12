@@ -10,7 +10,7 @@ class SensorService extends Service {
       limit: Number(params.pageSize | 0),
       offset: Number(params.pageNum - 1 | 0) * Number(params.pageSize | 0)
     })
-    return { sensor }
+    return sensor
   }
   async add(params) {
     const { app } = this
@@ -34,6 +34,12 @@ class SensorService extends Service {
     } else {
       return 'SENSOR CATEGORY IS EXIST'
     }
+  }
+  async category_list() {
+    const { app } = this
+    const database = await app.Helper.prototype.database(app)
+    const sensor_category = await database.sensor.category.select()
+    return sensor_category
   }
 }
 

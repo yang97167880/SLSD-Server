@@ -143,7 +143,6 @@ module.exports = {
           const res = await db.insert('hs_sensor', {
             id: params.id,
             name: params.name,
-            type: params.type,
             categoryId: params.categoryId,
             status: params.status
           });
@@ -170,7 +169,8 @@ module.exports = {
           save: async (params) => {
             const res = await db.insert('hs_sensor_category', {
               id: params.id,
-              name: params.name
+              name: params.name,
+              type: params.type
             });
             return res;
           },

@@ -10,7 +10,7 @@ class UserService extends Service {
     if (user != null) {
       if (user.role == null || user.role == "") return 'USER UNAUTHORITY'
       const token = await app.jwt.sign({ id: user.id, timestamp: params.timestamp }, app.config.jwt.secret, { expiresIn: 60 * 60 * 12 });
-      const result = { currentUser: { name: user.account, avatar: user.avatar, roles: [user.role], token: token } }
+      const result = { token: token }
       return result
     }
     return 'ACCOUNT OR PASSWORD WRONG'

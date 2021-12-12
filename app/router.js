@@ -5,4 +5,5 @@
  */
 module.exports = app => {
   require('./router/userRouter')(app);
+  require('./router/sensorRouter')(app);
 };

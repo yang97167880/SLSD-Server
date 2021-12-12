@@ -15,6 +15,12 @@ class UserService extends Service {
     }
     return 'ACCOUNT OR PASSWORD WRONG'
   }
+  async get(params) {
+    const { app } = this
+    const database = await app.Helper.prototype.database(app)
+    const user = await database.user.get({ id: params.decode.id })
+    return user
+  }
 }
 
 module.exports = UserService;

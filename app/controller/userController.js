@@ -19,6 +19,16 @@ class UserController extends Controller {
       ctx.helper.result({ ctx, data: { msg: err }, status: 500 });
     }
   }
+  async get() {
+    const { ctx, service } = this
+    try {
+      const payload = { decode: ctx.decode };
+      const data = await service.userService.get(payload);
+      ctx.helper.result({ ctx, data, status: 200 });
+    } catch (err) {
+      ctx.helper.result({ ctx, data: { msg: err }, status: 500 });
+    }
+  }
 }
 
 module.exports = UserController;

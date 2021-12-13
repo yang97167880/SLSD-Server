@@ -29,9 +29,25 @@ class UserController extends Controller {
       ctx.helper.result({ ctx, data: { msg: err }, status: 500 });
     }
   }
+  async set_role() {
+    const { ctx, service } = this
+    const setTransfer = {
+      roleId: { type: 'string', required: true, allowEmpty: false }, // 账户名
+    }
+    try {
+      ctx.validate(setTransfer);
+      const payload = { ...ctx.request.body, decode: ctx.decode };
+      const data = await service.userService.set_role(payload);
+      ctx.helper.result({ ctx, data, status: 200 });
+    } catch (err) {
+      ctx.helper.result({ ctx, data: { msg: err }, status: 500 });
+    }
+  }
   async route() {
     const { ctx, service } = this
     try {
+      const payload = { decode: ctx.decode };
+      const data = await service.userService.route(payload);
       ctx.helper.result({ ctx, data, status: 200 });
     } catch (err) {
       ctx.helper.result({ ctx, data: { msg: err }, status: 500 });

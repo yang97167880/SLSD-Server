@@ -21,6 +21,17 @@ class UserService extends Service {
     const user = await database.user.get({ id: params.decode.id })
     return user
   }
+  async set_role(params) {
+    const { app } = this
+    const database = await app.Helper.prototype.database(app)
+    const role = await database.role.get({ id: params.roleId })
+    if (role == null) return 'ROLE ERROR'
+    else {
+      const res = await database.user.edit({ role: role.instruct }, { where: { id: params.decode.id } })
+      if (res.affectedRows == 1) return 'SUCCESS'
+      return 'SET FAIL'
+    }
+  }
 }
 
 module.exports = UserService;

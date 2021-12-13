@@ -6,7 +6,7 @@ class RecordController extends Controller {
   async record() {
     const { ctx, app, service } = this;
     const data = ctx.args[0] || {};
-    const nsp = app.io.of('/education')
+    const nsp = app.io.of('/connect')
     try {
       if (data.key_id !== undefined && data.key_id !== null) {
         let payload = {

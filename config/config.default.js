@@ -48,6 +48,14 @@ module.exports = appInfo => {
     app: true,
     agent: false
   }
+  config.io = {
+    namespace: {
+      '/': {
+        connectionMiddleware: ['auth'],
+        packageMiddeware: ['']
+      }
+    }
+  }
   // add your middleware config here
   config.middleware = [];
 

@@ -127,6 +127,29 @@ module.exports = {
           },
         }
       },
+      power: {
+        get: async (where) => {
+          return await db.get('hs_power', where)
+        },
+        select: async (params) => {
+          return await db.select('hs_power', params)
+        },
+        save: async (params) => {
+          const res = await db.insert('hs_power', {
+            id: params.id,
+            instruct: params.instruct,
+            name: params.name,
+            describe: params.describe
+          });
+          return res;
+        },
+        edit: async (row, options) => {
+          return await db.update('hs_power', row, options);
+        },
+        del: async (where) => {
+          return await db.delete('hs_power', where);
+        },
+      },
       sensor: {
         get: async (where) => {
           return await db.get('hs_sensor', where)

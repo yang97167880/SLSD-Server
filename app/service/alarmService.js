@@ -18,7 +18,7 @@ class AlarmService extends Service {
     const sensor = await database.sensor.get({ id: params.sensorId })
     if (sensor == null) return 'SENSOR NO EXIST'
     else {
-      const alarm = await database.alarm.get({ id: params.sensorId })
+      const alarm = await database.alarm.get({ sensorId: params.sensorId })
       if (alarm == null) {
         const res = await database.alarm.save({
           id: await app.snowflake.uuid(),

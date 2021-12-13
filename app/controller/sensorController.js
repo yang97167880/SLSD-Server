@@ -21,8 +21,8 @@ class SensorController extends Controller {
   async add() {
     const { ctx, service } = this
     const addTransfer = {
-      name: { type: 'string', required: false, allowEmpty: false }, // 页码
-      categoryId: { type: 'string', required: false, allowEmpty: false } // 页长
+      name: { type: 'string', required: false, allowEmpty: false }, // 传感器编号
+      categoryId: { type: 'string', required: false, allowEmpty: false } // 分类ID
     }
     try {
       ctx.validate(addTransfer);

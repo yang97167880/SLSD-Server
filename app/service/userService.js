@@ -19,7 +19,12 @@ class UserService extends Service {
     const { app } = this
     const database = await app.Helper.prototype.database(app)
     const user = await database.user.get({ id: params.decode.id })
-    return user
+    return {
+      account: user.account,
+      avatar: user.avatar,
+      createAt: app.Helper.prototype.parseTime(user.createAt),
+      role: [user.role]
+    }
   }
   async set_role(params) {
     const { app } = this

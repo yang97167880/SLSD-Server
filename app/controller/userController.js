@@ -32,7 +32,7 @@ class UserController extends Controller {
   async set_role() {
     const { ctx, service } = this
     const setTransfer = {
-      roleId: { type: 'string', required: true, allowEmpty: false }, // 账户名
+      roleId: { type: 'string', required: true, allowEmpty: false }, // 角色ID
     }
     try {
       ctx.validate(setTransfer);

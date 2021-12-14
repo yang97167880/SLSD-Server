@@ -38,6 +38,18 @@ module.exports = {
     })
     return time_str
   },
+  parseMsg(action, payload = {}, metadata = {}) {
+    const meta = Object.assign({}, {
+      timestamp: Date.now(),
+    }, metadata);
+    return {
+      meta,
+      data: {
+        action,
+        payload,
+      },
+    };
+  },
   database: async function (app) {
     const db = await app.mysql.get('core');
     if (db === undefined) throw 'db client unconnected';

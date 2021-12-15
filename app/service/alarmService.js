@@ -15,6 +15,7 @@ class AlarmService extends Service {
       const sensorCategory = await database.sensor.category.get({ id: sensor.categoryId })
       v.sensorType = sensorCategory.type + ` [${sensorCategory.name}]`
       v.sensorName = sensor.name
+      v.isRange == 1 ? v.isRange = true : v.isRange = false
     }
     return alarm
   }

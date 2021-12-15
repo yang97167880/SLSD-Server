@@ -248,6 +248,35 @@ module.exports = {
       }
     }
   },
+  transaction: async function (app) {
+    const db = await app.mysql.get('core');
+    if (db === undefined) throw 'db client unconnected';
+    return {
+      role: {
+        setPower: async function (params) {
+          let state = {}
+          const _transaction = await db.beginTransaction();
+          try {
+            if (params.power.length > 0) {
+              for (const v of power) {
+                state = await _transaction.insert('hs_role_power', {
+                  id: await app.snowflake.uuid(),
+                  roleId: params.roleId,
+                  powerId: v
+                })
+              }
+              if (state.affectedRows !== 1) throw 'add hs_role_power error';
+            }
+            await _transaction.commit();
+            return { status: true }
+          } catch (err) {
+            await _transaction.rollback();
+            return { status: false, error: err };
+          }
+        }
+      }
+    }
+  },
   STATUS: {
     NOTPOWER: { code: 994000, msg: 'user not handle power' },// 无操作权限
   }

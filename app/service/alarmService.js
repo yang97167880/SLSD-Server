@@ -10,6 +10,12 @@ class AlarmService extends Service {
       limit: Number(params.pageSize | 0),
       offset: Number(params.pageNum - 1 | 0) * Number(params.pageSize | 0)
     })
+    for (const v of alarm.items) {
+      const sensor = await database.sensor.get({ id: v.sensorId })
+      const sensorCategory = await database.sensor.category.get({ id: sensor.categoryId })
+      v.sensorType = sensorCategory.type + ` [${sensorCategory.name}]`
+      v.sensorName = sensor.name
+    }
     return alarm
   }
   async add(params) {

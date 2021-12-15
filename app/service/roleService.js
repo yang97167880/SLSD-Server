@@ -11,8 +11,8 @@ class RoleService extends Service {
   }
   async set_power(params) {
     const { app } = this
-    const transcation = await app.Helper.prototype.transcation(app)
-    const res = transcation.role.setPower(params)
+    const transaction = await app.Helper.prototype.transaction(app)
+    const res = await transaction.role.setPower(params)
     if (res.status) return 'SUCCESS'
     else return 'SET POWER FAIL'
   }

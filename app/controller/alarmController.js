@@ -24,7 +24,7 @@ class AlarmController extends Controller {
       sensorId: { type: 'string', required: true, allowEmpty: false, min: 19, max: 19, trim: true, format: /^\d+$/ },
       rangeMax: { type: 'number', required: true, allowEmpty: false },
       rangeMin: { type: 'number', required: true, allowEmpty: false },
-      isRange: { type: 'string', required: true, allowEmpty: false, format: /^0|1$/ }
+      isRange: { type: 'boolean', required: true, allowEmpty: false }
     }
     try {
       ctx.validate(addTransfer);

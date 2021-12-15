@@ -258,14 +258,16 @@ module.exports = {
           const _transaction = await db.beginTransaction();
           try {
             if (params.power.length > 0) {
-              for (const v of power) {
+              state = await _transaction.delete('hs_role_power', { roleId: params.roleId })
+              if (state.affectedRows < 0) throw 'add hs_role_power error';
+              for (const v of params.power) {
                 state = await _transaction.insert('hs_role_power', {
                   id: await app.snowflake.uuid(),
                   roleId: params.roleId,
                   powerId: v
                 })
+                if (state.affectedRows !== 1) throw 'add hs_role_power error';
               }
-              if (state.affectedRows !== 1) throw 'add hs_role_power error';
             }
             await _transaction.commit();
             return { status: true }

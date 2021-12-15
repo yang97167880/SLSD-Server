@@ -26,6 +26,7 @@ class AlarmService extends Service {
     else {
       const alarm = await database.alarm.get({ sensorId: params.sensorId })
       if (alarm == null) {
+        params.isRange ? params.isRange = '1' : params.isRange = '0'
         const res = await database.alarm.save({
           id: await app.snowflake.uuid(),
           ...params

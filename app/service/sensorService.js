@@ -23,6 +23,26 @@ class SensorService extends Service {
       return 'ADD FAIL'
     }
   }
+  async search(params) {
+    const { app } = this
+    const database = await app.Helper.prototype.database(app)
+    const list = await database.sensor.select({
+      columns: ['id', 'name', 'status'],
+      where: { categoryId: params.categoryId }
+    })
+    return list
+  }
+  async del(params) {
+    const { app } = this
+    const database = await app.Helper.prototype.database(app)
+    const sensor = await database.sensor.get({ id: params.id })
+    if (sensor == null) return 'SENSOR IS NULL'
+    else {
+      const res = await database.sensor.del({ id: params.id })
+      if (res.affectedRows == 1) return 'SUCCESS'
+      return 'DELETE FAIL'
+    }
+  }
   async category_add(params) {
     const { app } = this
     const database = await app.Helper.prototype.database(app)

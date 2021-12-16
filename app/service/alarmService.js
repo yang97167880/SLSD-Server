@@ -38,6 +38,17 @@ class AlarmService extends Service {
       return 'ALARM EXIST'
     }
   }
+  async del(params) {
+    const { app } = this
+    const database = await app.Helper.prototype.database(app)
+    const alarm = await database.alarm.get({ id: params.id })
+    if (alarm == null) return 'ALARM IS NULL'
+    else {
+      const res = await database.alarm.del({ id: params.id })
+      if (res.affectedRows == 1) return 'SUCCESS'
+      return 'DELETE FAIL'
+    }
+  }
 }
 
 module.exports = AlarmService;

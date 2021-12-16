@@ -35,6 +35,20 @@ class AlarmController extends Controller {
       ctx.helper.result({ ctx, data: { msg: err }, status: 500 });
     }
   }
+  async del() {
+    const { ctx, service } = this
+    const deleteTransfer = {
+      id: { type: 'string', required: true, allowEmpty: false, min: 19, max: 19, trim: true, format: /^\d+$/ } //警告列表的id
+    }
+    try {
+      ctx.validate(deleteTransfer);
+      const payload = ctx.request.body || {};
+      const data = await service.alarmService.del(payload);
+      ctx.helper.result({ ctx, data, status: 200 });
+    } catch (err) {
+      ctx.helper.result({ ctx, data: { msg: err }, status: 500 });
+    }
+  }
 }
 
 module.exports = AlarmController;

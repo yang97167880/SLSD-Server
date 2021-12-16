@@ -56,6 +56,14 @@ module.exports = appInfo => {
       }
     }
   }
+  config.redis = {
+    client: {
+      port: 6379,
+      host: '127.0.0.1',
+      password: null,
+      db: 0
+    }
+  }
   // add your middleware config here
   config.middleware = [];
 

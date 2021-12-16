@@ -2,7 +2,7 @@
 
 module.exports = () => {
   return async (ctx, next) => {
-    const { app, socket } = ctx;
+    const { socket } = ctx;
     //const query = socket.handshake.query;
     // if (query.token === undefined) {
     //   socket.disconnect();

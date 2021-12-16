@@ -8,8 +8,23 @@ class SensorController extends Controller {
     const data = ctx.args[0] || {};
     const nsp = app.io.of('/')
     try {
-      data.value = Math.floor(Math.random() * 10)
-      nsp.emit('sensor', { ...data, time: ctx.helper.parseTime(new Date()) });
+      if (Array.isArray(data)) {
+        const list = await app.redis.hgetall('sensor.value')
+        const res = []
+        //data.map(v => list[v] == undefined ? res.push('sensor no exist!') : res.push(JSON.parse(temp)))
+        data.map(v => {
+          if (list[v] == undefined) res.push('sensor no exist!')
+          else {
+            res.push({
+              value: Math.floor(Math.random() * 20),
+              time: 0
+            })
+          }
+        })
+        nsp.emit('sensor', { list: res });
+      } else {
+        nsp.emit('sensor', { error: 'params error!' });
+      }
     } catch (err) {
       console.log(err)
       nsp.emit('sensor', { errorMsg: err });
